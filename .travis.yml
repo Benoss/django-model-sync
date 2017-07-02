@@ -18,6 +18,8 @@ matrix:
   exclude:
     - python: "2.7"
       env: DJANGO="https://github.com/django/django/archive/master.tar.gz"
+  allow_failures:
+    - env: DJANGO="https://github.com/django/django/archive/master.tar.gz"
 
 # command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
 install:
@@ -27,3 +29,6 @@ install:
 # command to run tests using coverage, e.g. python setup.py test
 script: coverage run --source django_model_sync runtests.py
 
+after_success:
+    - pip install codecov
+    - codecov -e DJANGO
